@@ -1,0 +1,108 @@
+lgoritmo calcu
+	definir pobtotal Como Entero //este es el valor de la poblacion total
+	Definir numsanos Como Entero //este es la cantidad de sanos en la población
+	Definir numenf Como Entero //este es la cantidad de enfermos en la población
+	Definir prevalencia, especificidad Como Real // medida de morbilidad
+	Definir nombre  Como Caracter //nombre del usuario de la calculadora
+	Definir enfermedad Como Caracter //enfermedad de interés
+	Definir prueba Como Caracter //prueba de interés
+	Definir a,b,c,d Como Entero //cantidades de sujetos 
+	definir totalperso Como Entero //cantidades de sujetos 
+	Definir muestra Como Entero //subgrupo de la población total
+	definir poblavalida Como Entero
+	
+	escribir "Nombre del usuario: " //escribir nombre del usuario del algoritmo
+	leer nombre  
+	escribir "Hola ",nombre," esta es tu calculadora especial para epidemiolgía, aqui podrás calcular medidas importantes como prevalencia, sensibilidad y especificidad."
+	Escribir "* La Prevalencia entendida como la frecuencia con la que ocurre un evento(enfermedad) en el total de población en que puede ocurrir."
+	Escribir "** La sensibilidad como el porcentaje de personas que una prueba diagnóstica puede detectar con una enfermedad determinada en las personas que padecen dicha enfermedad."
+	Escribir "*** La especificidad como el porcentaje de personas que obtienen un resultado negativo para una enfermedad de una prueba diagnóstica entre un grupo de personas que no tienen la enfermedad."
+	
+	Escribir "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-"
+	Escribir "DATOS DE INTERES"
+	escribir sin saltar "Escribe la enfermedad de interés: "
+	leer enfermedad
+	Escribir " Ingrese el número de personas enfermas en la población:   "
+	leer numenf
+	Escribir "Ingrese el numero de personas sanas en la población:   "
+	leer numsanos
+	pobtotal<-numenf+numsanos
+	Escribir "La población total es:   ",pobtotal
+	
+	Escribir "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-"
+	
+	escribir sin saltar "Nombre de la prueba usada en el estudio fue: "
+	leer prueba
+	Dimension matriz[3,3]
+	poblavalida<-0
+	escribir sin saltar "Digite la cantidad de personas enfermas con prueba positiva (A):"
+	Leer a
+	matriz[1,1] <- a
+	poblavalida<-poblavalida+a
+	escribir sin saltar "Digite la cantidad de personas sanas con una prueba que dió positivo (B):"
+	leer b
+	matriz[1,2] <- b
+	poblavalida<-poblavalida+b
+	escribir sin saltar "Digite la cantidad de personas enfermas con prueba negativa (C):"
+	leer c
+	matriz[2,1] <- c
+	poblavalida<-poblavalida+c
+	escribir sin saltar "Digite la cantidad de personas sanas con una prueba que dió negativo (D):"
+	leer d
+	matriz[2,2] <- d
+	totalperso <- a+b+c+d
+	Escribir "La población de este estudio es:   ",totalperso
+	
+	Escribir "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-"
+	Repetir
+		Escribir "Por favor elija una opción del 1 al 5, segun el indice que desea calcular: "
+		Escribir "   1. Prevalencia de la enfermedad en la población"
+		Escribir "   2. Prevalencia de la enfermedad en el estudio"
+		Escribir "   3. Pruebas diagnóstica: sensibilidad"
+		Escribir "   4. Pruebas diagnóstica: especificidad"
+		Escribir "   5. Salir"
+		
+		Leer OP
+		Segun OP Hacer
+			1:	prevalencia<-redon((numsanos/pobtotal)*100)
+				Escribir "La prevalencia de la enfermedad en la población estudiada es:    ", prevalencia, "%"
+				escribir " Esto se puede interpretar como el ", prevalencia, "%", " de la población total se encuentra enferma"  
+				
+			2:	totalperso <- a+b+c+d
+				prevalencia<-redon(((a+c)/totalperso)*100)
+				Escribir "La prevalencia de la enfermedad en el estudio es del: ", prevalencia, "%"
+				escribir " Esto se puede interpretar como el ", prevalencia, "%", " de las personas del estudio se encuentra enferma"
+				
+			3:  escribir sin saltar "definir muestra de la población: "
+				leer muestra
+				totalperso <- a+b+c+d	
+				
+				si (totalperso<>muestra) Entonces
+					Escribir "La muestra digitada es diferente a la suma de la población de estudio"
+				SiNo
+					sensibilidad<-redon((a/(a+c))*100)
+					escribir "La sensibilidad de la prueba es: ", sensibilidad, "%"
+					escribir " Esto se puede interpretar como el ", sensibilidad, "%, de personas que estando enfermas obtuvieron una prueba diagnóstica positiva"
+				FinSi
+				
+			4:  escribir sin saltar "Definir muestra de la población: "
+				leer muestra
+				si (totalperso<>muestra) Entonces
+					Escribir "La muestra digitada es diferente a la suma de la población de estudio"
+				SiNo
+					especificidad<-redon(d/(d+b)*100)
+					escribir "La especificidad de la prueba es: ", especificidad, "%"
+					escribir "Esto se puede interpretar como el ", especificidad, "%, de personas que estando sanas obtuvieron una prueba diagnóstica negativa"
+				FinSi	
+				
+			5:
+				Escribir "Gracias, por contar con esta calculadora"
+				
+			De otro modo:
+				Escribir "Opción no válida"
+		FinSegun
+		Escribir "Presione enter para continuar"
+		Esperar Tecla
+	Hasta Que OP=5
+FinAlgoritmo
+
